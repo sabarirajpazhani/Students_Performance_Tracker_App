@@ -16,6 +16,54 @@ namespace Student_Performance_Tracker
     }
     public class Program
     {
+        public static void DisplayParticularStudDetails(int student_ID, Hashtable StudentsDetails)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("----------------------------------------------------------------------------------------------------");
+            Console.ResetColor();
+            Console.WriteLine(
+                $"{"Student ID",-15}" +
+                $"{"Student Name",-25}" +
+                $"{"Student Type",-25}" +
+                $"{"Student Grade",-35}"
+            );
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("----------------------------------------------------------------------------------------------------");
+            Console.ResetColor();
+
+            Console.WriteLine();
+            Students studentByID = (Students)StudentsDetails[student_ID];
+            if(studentByID is RegularStudents r)
+            {
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine(
+                    $"{r.Student_ID,-15}" +
+                    $"{r.Student_Name,-25}" +
+                    $"{r.Student_Type,-25}" +
+                    $"{r.RegularStudGrade,-35}"
+                );
+                Console.ResetColor();
+                Console.WriteLine();
+            }
+            if(studentByID is ExchangeSudents e)
+            {
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine(
+                    $"{e.Student_ID,-15}" +
+                    $"{e.Student_Name,-25}" +
+                    $"{e.Student_Type,-25}" +
+                    $"{e.ExchangeStudGrade,-35}"
+                );
+                Console.ResetColor();
+                Console.WriteLine();
+            }
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("----------------------------------------------------------------------------------------------------");
+            Console.ResetColor();
+        }
+
         public static void DisplayAllStudents(Hashtable StudentsDetails)
         {
             var SortedStudentDetails = StudentsDetails.Cast<DictionaryEntry>().OrderBy(x => x.Key);
@@ -377,7 +425,7 @@ namespace Student_Performance_Tracker
                             if (!StudentsDetails.ContainsKey(student_ID))
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("Invalid ID! Please enter a Valid ID as shown in the table above.");
+                                Console.WriteLine("Student ID Not Found! Please enter a Valid ID as shown in the table above.");
                                 Console.ResetColor();
                                 goto UpdateStudID;
                             }
@@ -786,6 +834,122 @@ namespace Student_Performance_Tracker
                             }
                         }
                         break;
+
+                    case 3:
+                        Console.WriteLine();
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine("                                You Enter '3' for Deleting the Student                             ");
+                        Console.ResetColor();
+                        Console.WriteLine();
+
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine("----------------------------------------------------------------------------------------------------");
+                        Console.ResetColor();
+                        Console.WriteLine();
+
+                        DeleteStudentID:
+                        try
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.Write("Enter the student ID to update: ");
+                            Console.ResetColor();
+
+                            int student_ID = int.Parse(Console.ReadLine());
+
+                            if (!StudentsDetails.ContainsKey(student_ID))
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Student ID Not Found! Please enter a Valid ID as shown in the table above.");
+                                Console.ResetColor();
+                                goto DeleteStudentID;
+                            }
+
+                            StudentsDetails.Remove(student_ID); 
+                            StudentMark.Remove(student_ID);
+                            Console.WriteLine();
+                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                            Console.WriteLine($"Student ID - {student_ID} has been deleted successfully.");
+                            Console.ResetColor();
+                            Console.WriteLine();
+                        }
+                        catch (FormatException e)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Enter the Student ID using digits only—no letters, symbols, or whitespace.");
+                            Console.ResetColor();
+                            goto DeleteStudentID;
+                        }
+                        catch (OverflowException e)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Invalid ID. Please enter a valid Student ID.");
+                            Console.ResetColor();
+                            goto DeleteStudentID;
+                        }
+                        break;
+
+
+                    case 4:
+                        Console.WriteLine();
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine("                       You Enter '4' for Seaarch the Particular the Student                         ");
+                        Console.ResetColor();
+                        Console.WriteLine();
+
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine("----------------------------------------------------------------------------------------------------");
+                        Console.ResetColor();
+                        Console.WriteLine();
+
+                        SearchStudentID:
+                        try
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.Write("Enter the student ID to update: ");
+                            Console.ResetColor();
+
+                            int student_ID = int.Parse(Console.ReadLine());
+
+                            if (!StudentsDetails.ContainsKey(student_ID))
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Student ID Not Found! Please enter a Valid ID as shown in the table above.");
+                                Console.ResetColor();
+                                goto SearchStudentID;
+                            }
+                            Console.WriteLine();    
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.WriteLine($"                            Here are the details of Student ID {student_ID}                      ");
+                            Console.ResetColor();
+                            Console.WriteLine();
+
+                            DisplayParticularStudDetails(student_ID, StudentsDetails);
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.WriteLine($"                              Here are the Mark of Student ID {student_ID}                        ");
+                            DisplayParticularStudMark(StudentMark,student_ID);
+
+                            Console.WriteLine();
+                            Console.WriteLine();
+                        }
+                        catch (FormatException e)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Enter the Student ID using digits only—no letters, symbols, or whitespace.");
+                            Console.ResetColor();
+                            goto SearchStudentID;
+                        }
+                        catch (OverflowException e)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Invalid ID. Please enter a valid Student ID.");
+                            Console.ResetColor();
+                            goto SearchStudentID;
+                        }
+
+                        break;
+
 
 
                     case 5:
