@@ -158,8 +158,8 @@ namespace Student_Performance_Tracker
         public static int studId = 100;
         static void Main(string[] args)
         {
-            Hashtable StudentsDetails = new Hashtable();  //For ID, Name, Type and Grade
-            Hashtable StudentMark = new Hashtable();      //For ID, Subject Marks (Class)
+            Hashtable StudentsDetails = new Hashtable();     //For ID, Name, Type and Grade
+            Hashtable StudentMark = new Hashtable();         //For ID, Subject Marks (Class)
 
             while (true)
             {
@@ -176,6 +176,7 @@ namespace Student_Performance_Tracker
                 Console.WriteLine("                                     4. Search the Student By ID                                    ");
                 Console.WriteLine("                                     5. Display ALl the Students                                    ");
                 Console.WriteLine("                                     6. View the Number of Students (Exchange / Regular) in each Grade");
+                Console.WriteLine("                                     7. Exit                                                        ");
 
                 Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.Cyan;
@@ -198,7 +199,7 @@ namespace Student_Performance_Tracker
                         Console.ResetColor();
                         goto Choice;
                     }
-                    if (choice > 6)
+                    if (choice > 7)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Choice must be between 1 and 6.");
@@ -953,27 +954,195 @@ namespace Student_Performance_Tracker
 
 
                     case 5:
+                        Console.WriteLine();
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine("                            You Enter '5' for Display all the Student                               ");
+                        Console.ResetColor();
+                        Console.WriteLine();
 
-                                Console.WriteLine();
-                                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                                Console.WriteLine("                            You Enter '5' for Display all the Student                               ");
-                                Console.ResetColor();
-                                Console.WriteLine();
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine("----------------------------------------------------------------------------------------------------");
+                        Console.ResetColor();
+                        Console.WriteLine();
 
-                                Console.ForegroundColor = ConsoleColor.Cyan;
-                                Console.WriteLine("----------------------------------------------------------------------------------------------------");
-                                Console.ResetColor();
+                        DisplayAllStudents(StudentsDetails);
 
-                                DisplayAllStudents(StudentsDetails);
+                        Console.WriteLine();
+                        Console.WriteLine("Press Any Key to Continue.....");
+                        Console.ReadKey(true);
+                        break;
 
-                                Console.WriteLine();
-                                Console.WriteLine("Press Any Key to Continue.....");
-                                Console.ReadKey(true);
-                                break;
 
+                    case 6:
+                        Console.WriteLine();
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine("                            You Enter '5' for Display all the Student                               ");
+                        Console.ResetColor();
+                        Console.WriteLine();
+
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine("----------------------------------------------------------------------------------------------------");
+                        Console.ResetColor();
+                        Console.WriteLine();
+
+                        int A_PluseCount = 0;
+                        int A_Count = 0;
+                        int B_Count = 0;
+                        int C_Count = 0;
+                        int D_Count = 0;
+                        int F_Count = 0;
+
+                        int Pass_Count = 0;
+                        int Fail_Count = 0;
+
+                        foreach(DictionaryEntry i in StudentsDetails)
+                        {
+                            var studDetails = i.Value;  
+
+                            if(studDetails is RegularStudents regular)
+                            {
+                                if(regular.RegularStudGrade == "A+")
+                                {
+                                    A_PluseCount++;
+                                }
+                                else if(regular.RegularStudGrade == "A")
+                                {
+                                    A_Count++;
+                                }
+                                else if(regular.RegularStudGrade == "B")
+                                {
+                                    B_Count++;
+                                }
+                                else if(regular.RegularStudGrade == "C")
+                                {
+                                    C_Count++;
+                                }
+                                else if(regular.RegularStudGrade == "D")
+                                {
+                                    D_Count++;
+                                }
+                                else if(regular.RegularStudGrade == "F")
+                                {
+                                    F_Count++;
+                                }
                             }
 
+                            if(studDetails is ExchangeSudents exchange)
+                            {
+                                if(exchange.ExchangeStudGrade == "Pass")
+                                {
+                                    Pass_Count++;
+                                }
+                                if(exchange.ExchangeStudGrade == "Fail")
+                                {
+                                    Fail_Count++;
+                                }
+                            }
+                        }
 
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine("                     ------------ Students Performance Summary------------                         ");
+                        Console.ResetColor();
+                        Console.WriteLine();
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine("                                Regular Students Grade Summary                                     ");
+                        Console.ResetColor();
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("                                        Grade A+ : ");
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine($"{A_PluseCount} Students");
+
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("                                        Grade A  : ");
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine($"{A_Count} Students");
+
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("                                        Grade B  : ");
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine($"{B_Count} Students");
+
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("                                        Grade C  : ");
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine($"{C_Count} Students");
+
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("                                        Grade D  : ");
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine($"{D_Count} Students");
+
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("                                        Grade F  : ");
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine($"{F_Count} Students");
+
+                        Console.WriteLine();
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine("                     =====================================================                         ");
+                        Console.ResetColor();
+                        Console.WriteLine();
+
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine("                                Exchange Students Grade Summary                                    ");
+                        Console.ResetColor();
+                        Console.WriteLine();
+
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("                                        Grade Pass : ");
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine($"{Pass_Count} Students");
+
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("                                        Grade Fail : ");
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine($"{Fail_Count} Students");
+
+                        Console.WriteLine();
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine("                     -----------------------------------------------------                         ");
+                        Console.ResetColor();
+
+                        break;
+
+                    case 7:
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine("-------------------------------------------------------------");
+                        Console.ResetColor();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("                     You Choose to Exist :)                  ");
+                        Console.ResetColor();
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine("-------------------------------------------------------------");
+                        Console.ResetColor();
+                        Console.WriteLine();
+                        Console.WriteLine();
+
+                        for (int i = 5; i > 0; i--)
+                        {
+                            Console.Clear();
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.Write("                 Existing From Grocery: ");
+                            Console.ResetColor();
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine($" {i} ");
+                            Console.ResetColor();
+                            Thread.Sleep(1000);
+                        }
+                        break;
+                }
+                if (Choice == 7)
+                {
+
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("                      ~ * Thank You * ~                    ");
+                    Console.ResetColor();
+                    Console.ReadKey();
+                    break;
+                }
             }
 
         }
