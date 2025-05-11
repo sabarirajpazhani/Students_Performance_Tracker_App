@@ -493,7 +493,9 @@ namespace Student_Performance_Tracker
                             Console.ResetColor();
                             Console.WriteLine();
                         }
-
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.WriteLine("----------------------------------------------------------------------------------------------------");
+                        Console.ResetColor();
                         Console.WriteLine();
 
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -834,6 +836,8 @@ namespace Student_Performance_Tracker
                                 break;
                             }
                         }
+                        Console.WriteLine("Press Any Key to Continue.....");
+                        Console.ReadKey(true);
                         break;
 
                     case 3:
@@ -887,6 +891,8 @@ namespace Student_Performance_Tracker
                             Console.ResetColor();
                             goto DeleteStudentID;
                         }
+                        Console.WriteLine("Press Any Key to Continue.....");
+                        Console.ReadKey(true);
                         break;
 
 
@@ -949,6 +955,8 @@ namespace Student_Performance_Tracker
                             goto SearchStudentID;
                         }
 
+                        Console.WriteLine("Press Any Key to Continue.....");
+                        Console.ReadKey(true);
                         break;
 
 
@@ -967,7 +975,6 @@ namespace Student_Performance_Tracker
 
                         DisplayAllStudents(StudentsDetails);
 
-                        Console.WriteLine();
                         Console.WriteLine("Press Any Key to Continue.....");
                         Console.ReadKey(true);
                         break;
@@ -1103,6 +1110,8 @@ namespace Student_Performance_Tracker
                         Console.WriteLine("                     -----------------------------------------------------                         ");
                         Console.ResetColor();
 
+                        Console.WriteLine("Press Any Key to Continue.....");
+                        Console.ReadKey(true);
                         break;
 
                     case 7:
